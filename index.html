@@ -2,6 +2,73 @@
 <html>
   <head>
     <title>Tawlk</title>
+    <style>
+        * {
+            border:0;
+            padding:0;
+            margin:0;
+            color:#FFF;
+            background:#000;
+            font-family:monospace;
+            font-size:12px;
+        }
+        body {
+            display:block;
+            width:100%;
+            max-width:100%;
+        }
+        table {
+            width:100%;
+            overflow: hidden;
+        }
+        table td {
+            padding:3px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow:hidden;
+        }
+        table td.message {
+            border-bottom:2px #666 solid;
+            max-width:50px; 
+        }
+        table td.date {
+            width:60px;
+        }
+        table td.file {
+            width:60px;
+        }
+        table td.pid {
+            width:60px;
+        }
+        table td.pid {
+            width:30px;
+        }
+        table td.level {
+            width:10px;
+            background:#444;
+        }
+        table td.line {
+            width:10px;
+        }
+        table tr.Configuration td {
+            background:#311;
+        }
+        table tr.Core td {
+            background:#131;
+        }
+        table tr.PluginDispatcher td {
+            background:#113;
+        }
+        table tr.PluginManager td {
+            background:#313;
+        }
+        table tr.Connector td {
+            background:#331;
+        }
+        table tr.Security td {
+            background:#313131;
+        }
+    </style>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         $.getJSON("http://udderweb.com:10240/?callback=?",
@@ -11,14 +78,13 @@
 
     $.each(data, function(i,item){
       console.log(item.msg)
-      $('<tr><td>' + item.file 
-        + '</td><td>' + item.date
-        + '</td><td>' + item.pid 
-        + '</td><td>' + item.level
-        + '</td><td>' + item.line
+      $('<tr class="'+item.line[0]+'"><td class="date">' + item.date 
+        + '</td><td class="file">' + item.file
+        + '</td><td class="pid">' + item.pid 
+        + '</td><td class="level">' + item.level
+        + '</td><td class="line">' + item.line[0]
         + '</td></tr>').appendTo("#log");
-      $('<tr><td>' 
-        + '</td><td colspan="4">' + item.msg.join("<br>")
+        $('<tr class="'+item.line[0]+'"><td class="message" colspan="5">' + item.msg.join("<br>")
         + '</td></tr>').appendTo("#log");
    });
   });
