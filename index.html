@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Tawlk</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.getJSON("http://udderweb.com:10240/?callback=?",
+  function(data) {
+//   PluginDispatcherWorkerThread.log|2011-06-10 10:15:59,233 | 107322682521344 | 10 | PluginDispatcher:run:74
+//   PluginDispatcherWorkerThread.log|    Worker thread started.
+
+    $.each(data, function(i,item){
+      console.log(item.msg)
+      $('<tr><td>' + item.file 
+        + '</td><td>' + item.date
+        + '</td><td>' + item.pid 
+        + '</td><td>' + item.level
+        + '</td><td>' + item.line
+        + '</td></tr>').appendTo("#log");
+      $('<tr><td>' 
+        + '</td><td colspan="4">' + item.msg.join("<br>")
+        + '</td></tr>').appendTo("#log");
+   });
+  });
+    </script>
+  </head>
+  <body>
+    <table id="log"></table>
+  </body>
+</html>
