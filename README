@@ -1,0 +1,4 @@
+This is an optional piece for SB2. This submodule contains a webserver that can be run with 
+python LogServer.py
+
+This will then start up a server that you can view in browser.
