@@ -4,7 +4,6 @@ import json
 import os
 import urlparse
 import re
-
 def processLogs(**options):
     #get list of file
     entries = []
@@ -13,7 +12,6 @@ def processLogs(**options):
             r = options.get("FileName",".*")
             if re.search(r,fname):
                 for line in  file(os.path.join(cur,fname)):
-                    print line.split("|",4)
                     date,pid,level,pos,msg = line.split("|",4)
                     # process stuff against **options
                     entries.append([date,pid,level,pos,msg,fname])
@@ -38,14 +36,15 @@ def processLogs(**options):
         e = {}
         for n,val in enumerate(line):
             key = ["date","pid","level","line","msg","file"][n]
-            if n != 4:
-                e[key]=cgi.escape(val)
-            else:
+            if n == 4:
                 e[key]=map(cgi.escape,val.split("\t"))
+            elif n ==3:
+                e[key]=map(cgi.escape,val.split(":"))
+            else:
+                e[key]=cgi.escape(val)
         out.append(e)
     #in the future this version should cache the output, and timestamps, only recomputing as necessary
     return json.dumps(out)
-
 
 
 class Handler(BaseHTTPRequestHandler):
